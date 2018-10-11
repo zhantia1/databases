@@ -1,11 +1,14 @@
 var db = require('../db');
 
+var getMessagesQuery = 'SELECT users.username, rooms.roomname, messages.body, messages.objectid, messages.createdat FROM messages, rooms, users WHERE users.id = messages.user AND rooms.id = messages.room;';
+var postMessageQuery = 'INSERT INTO messages (body, user, room, objectid, createdat) VALUES (?, (SELECT id FROM users WHERE username = ?), (SELECT id FROM rooms WHERE roomname = ?), ?, ?);';
+
 module.exports = {
   messages: {
     get: function (callback) {
       db.connect();
       db.query(getMessagesQuery, null, (err, results) => {
-        if (err) { throw err };
+        if (err) { throw err; }
         callback(results);
       });
       db.end();
@@ -26,6 +29,3 @@ module.exports = {
     post: function () {} // a function which inserts a user into the database
   }
 };
-
-var getMessagesQuery = 'SELECT users.username, rooms.roomname, messages.body, messages.objectid, messages.createdat FROM messages, rooms, users WHERE users.id = messages.user AND rooms.id = messages.room;';
-var postMessageQuery = 'INSERT INTO messages (body, user, room, objectid, createdat) VALUES (?, (SELECT id FROM users WHERE username = ?), (SELECT id FROM rooms WHERE roomname = ?), ?, ?);';
