@@ -1,6 +1,16 @@
 var express = require('express');
 var db = require('./db');
 
+
+
+var defaultCorsHeaders = {
+  'access-control-allow-origin': '*',
+  'access-control-allow-methods': 'GET, POST, PUT, DELETE, OPTIONS',
+  'access-control-allow-headers': 'content-type, accept, X-Parse-Application-Id, X-Parse-REST-API-Key',
+  'access-control-max-age': 10 // Seconds.
+};
+
+var headers = defaultCorsHeaders;
 // Middleware
 var morgan = require('morgan');
 var parser = require('body-parser');
@@ -22,7 +32,12 @@ app.use(parser.json());
 app.use('/classes', router);
 
 // Serve the client files
-app.use(express.static(__dirname + '/../client'));
+app.use(express.static(__dirname + '/../'));
+//app.use(express.static(__dirname + '/../client'));
+// app.get('/', (req, res) => {
+//   res.send(express.static(__dirname + '/../index.html'));
+// })
+app.set(defaultCorsHeaders);
 
 // If we are being run directly, run the server.
 if (!module.parent) {

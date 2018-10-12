@@ -1,3 +1,5 @@
+DROP DATABASE chat;
+
 CREATE DATABASE chat;
 
 USE chat;
@@ -7,12 +9,12 @@ USE chat;
 
 CREATE TABLE users (
   id SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  username TEXT
+  username CHAR(20) UNIQUE
 );
 
 CREATE TABLE rooms (
   id SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  roomname TEXT
+  roomname CHAR(20) UNIQUE
 );
 
 CREATE TABLE messages (
@@ -21,7 +23,7 @@ CREATE TABLE messages (
   body TEXT,
   room SMALLINT,
   objectid INT,
-  createdat TEXT,
+  createdat INT,
   FOREIGN KEY (user) REFERENCES users (id),
   FOREIGN KEY (room) REFERENCES rooms (id)
 );
