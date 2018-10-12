@@ -20,7 +20,7 @@ CREATE TABLE rooms (
 CREATE TABLE messages (
   id SMALLINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   user SMALLINT,
-  body TEXT,
+  text VARCHAR(200),
   room SMALLINT,
   objectid INT,
   createdat INT,

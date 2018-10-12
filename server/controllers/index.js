@@ -7,7 +7,7 @@ module.exports = {
         if (err) {
           res.end(err);
         } else {
-          res.status(200).json(data).end();
+          res.json(data);
         }
       });
     }, // a function which handles a get request for all messages
@@ -18,8 +18,7 @@ module.exports = {
           console.log(err);
           res.end(JSON.stringify(err));
         } else {
-          res.status(201).end();
-          console.log('Message successfully posted');
+          res.status(201).end('Message successfully posted');
         }
       });
     } // a function which handles posting a message to the database
@@ -32,7 +31,7 @@ module.exports = {
         if (err) {
           res.end(err);
         } else {
-          res.status(200).json(data).end();
+          res.json(data);
         }
       });
     }, // a function which handles a get request for all users

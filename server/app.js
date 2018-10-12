@@ -30,13 +30,13 @@ app.use(parser.json());
 
 // Set up our routes
 app.use('/classes', router);
+// app.options('/messages', function(req, res) {
+//   res.send(200);
+// });
 
 // Serve the client files
-app.use(express.static(__dirname + '/../'));
-//app.use(express.static(__dirname + '/../client'));
-// app.get('/', (req, res) => {
-//   res.send(express.static(__dirname + '/../index.html'));
-// })
+app.use(express.static(__dirname + '/../client'));
+
 app.set(defaultCorsHeaders);
 
 // If we are being run directly, run the server.

@@ -1,7 +1,7 @@
 var db = require('../db');
 
-var getMessagesQuery = 'SELECT users.username, rooms.roomname, messages.body, messages.objectid, messages.createdat FROM messages, rooms, users WHERE users.id = messages.user AND rooms.id = messages.room;';
-var postMessageQuery = 'INSERT INTO messages (body, user, room, objectid, createdat) VALUES (?, (SELECT id FROM users WHERE username = ?), (SELECT id FROM rooms WHERE roomname = ?), ?, ?);';
+var getMessagesQuery = 'SELECT users.username, rooms.roomname, messages.text, messages.objectid, messages.createdat FROM messages, rooms, users WHERE users.id = messages.user AND rooms.id = messages.room;';
+var postMessageQuery = 'INSERT INTO messages (text, user, room, objectid, createdat) VALUES (?, (SELECT id FROM users WHERE username = ?), (SELECT id FROM rooms WHERE roomname = ?), ?, ?);';
 db.connect();
 
 module.exports = {
@@ -17,8 +17,7 @@ module.exports = {
         db.query('INSERT INTO rooms (roomname) VALUES (?)', [message.roomname], (err) => {
           // if (err) { return callback(err) };
           var createdAt = Math.floor(Date.now() / 1000);
-          console.log(createdAt);
-          db.query(postMessageQuery, [message.message, message.username, message.roomname, message.objectId, createdAt], (err) => {
+          db.query(postMessageQuery, [message.text, message.username, message.roomname, message.objectId, createdAt], (err) => {
             callback(err);
           });
         });

@@ -54,7 +54,6 @@ describe('Persistent Node Chat Server', function() {
 
         dbConnection.query(queryString, queryArgs, function(err, results) {
           // Should have one result:
-          console.log(results);
           if (err) { console.log(err); }
           expect(results.length).to.equal(1);
 
@@ -70,12 +69,13 @@ describe('Persistent Node Chat Server', function() {
   it('Should output all messages from the DB', function(done) {
     // Let's insert a message into the db
     var messageText = 'Death is but a door. Time is but a window. I will be back.';
-    var userKey = 'SELECT id FROM users WHERE username = \'Vigo\'';
-    var roomKey = 'SELECT id FROM rooms WHERE roomname = \'Museum\'';
+    // var userKey = 'SELECT id FROM users WHERE username = \'Vigo\'';
+    // var roomKey = 'SELECT id FROM rooms WHERE roomname = \'Museum\'';
     var queryString1 = 'INSERT INTO users (username) VALUE (?);';
     var queryString2 = 'INSERT INTO rooms (roomname) VALUE (?);';
     var queryString3 = 'INSERT INTO messages (user, body, room) VALUES ((SELECT id FROM users WHERE username = \'Vigo\'), \'Death is but a door. Time is but a window. I will be back.\', (SELECT id FROM rooms WHERE roomname = \'Museum\'));';
-    var queryArgs = [userKey, messageText, roomKey];
+    // var queryArgs = [userKey, messageText, roomKey];
+    
     // TODO - The exact query string and query args to use
     // here depend on the schema you design, so I'll leave
     // them up to you. */
